@@ -89,26 +89,80 @@
 
     //CALCULATNG NUMBER OF ADMIN AND USERS AND POSTS FOR EACH
 
-    function AdminCalcul()
+    function AdminCalcul($default = 0)
     {
         $query = "SELECT * FROM admin";
 
         $result = query($query);
 
-        $count = count($result);
+        if(is_array($result) && !empty($result))
+        {
+            $count = count($result);
 
-        return $count; 
+            return $count; 
+        }
+
+        return $default;
         
     }
 
-    function UsersCalcul()
+    function UsersCalcul($default = 0)
     {
         $query = "SELECT * FROM users";
 
         $result = query($query);
 
-        $count = count($result);
-        
-        return $count; 
+        if(is_array($result) && !empty($result))
+        {
+            $count = count($result);
+
+            return $count; 
+        }
+
+        return $default; 
         
     }
+
+    function postAdminCalcul ($default = 0)
+    {
+        $query = "SELECT * FROM posts_admin";
+
+        $result = query($query);
+
+        if(is_array($result) && !empty($result))
+        {
+            $count = count($result);
+
+            return $count; 
+        }
+
+        return $default; 
+    }
+
+    function postUsersCalcul ($default = 0)
+    {
+        $query = "SELECT * FROM posts_users";
+
+        $result = query($query);
+
+        if(is_array($result) && !empty($result))
+        {
+            $count = count($result);
+
+            return $count; 
+        }
+
+        return $default; 
+    }
+
+    //SANITIZE INPUTS
+
+    function SANITIZE_MY_INPUTS ($key)
+    {
+        $key = trim($_POST[$key]);
+        $key = stripslashes($_POST[$key]);
+        $key = htmlspecialchars($_POST[$key]);
+
+        return $key; 
+    }
+

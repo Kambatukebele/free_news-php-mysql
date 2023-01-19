@@ -23,6 +23,7 @@
         if(file_exists($FILENAME))
         {
             require $FILENAME;
+            
         }else 
         {
             $FILENAME = "../app/controllers/404.php"; 

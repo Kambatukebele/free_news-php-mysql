@@ -9,7 +9,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="section-title mb-0">
-                        <h4 class="m-0 text-uppercase font-weight-bold">LOG IN ADMIN</h4>
+                        <h4 class="m-0 text-uppercase font-weight-bold">LOG IN USERS</h4>
                     </div>
                     <div class="bg-white border border-top-0 p-4 mb-3">
                         <h6 class="text-uppercase font-weight-bold mb-3">Log in </h6>

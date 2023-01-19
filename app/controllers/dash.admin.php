@@ -51,7 +51,7 @@
               <!-- small box -->
               <div class="small-box bg-yellow">
                 <div class="inner">
-                  <h3>44</h3>
+                  <h3><?= postAdminCalcul();?></h3>
                   <p>Admin Posts</p>
                 </div>
                 <div class="icon">
@@ -64,7 +64,7 @@
               <!-- small box -->
               <div class="small-box bg-red">
                 <div class="inner">
-                  <h3>65</h3>
+                  <h3><?= postUsersCalcul();?></h3>
                   <p>Users Posts</p>
                 </div>
                 <div class="icon">
@@ -78,59 +78,106 @@
           <div class="row">
             <!-- Left col -->
             <div class="col-xs-12">
+                 
+            <?php
+
+              $section_one = $URL[0] ?? "dash.admin"; 
+              $section_two = $URL[1] ?? "view"; 
+              $section_three = $URL[2] ?? 0; 
+          
+
+              $query = "SELECT * FROM users";
+              $result = query($query);
+
+            ?>
+
+            <?php if($section_two == "view"): ?>
                 <div class="box">                  
                     <div class="box-header">
-                      <h3 class="box-title">Users List</h3>
+                        <h3 class="box-title">Users List</h3>
                     </div><!-- /.box-header -->
                     <div class="box-body">
-                      <table id="example1" class="table table-bordered table-striped">
+                        <table id="example1" class="table table-bordered table-striped">
                         <thead>
-                          <tr>
+                            <tr>
                             <th>User Name</th>
                             <th>Full Names</th>
                             <th>Email</th>
                             <th>Action</th>
-                          </tr>
+                            </tr>
                         </thead>
                         <tbody>
-                        <?php
-                            $query = "SELECT * FROM users";
-                            $result = query($query);
-                        ?>
-                        <?php foreach($result as $data): ?>
-                          <tr>
-                            <td><?= $data['user_name'];  ?></td>
-                            <td><?= $data['first_name'] . " " . $data['last_name'];  ?></td>
-                            <td><?= $data['email']; ?></td>
-                            <td><a href="dash.admin/dash.delete/$id"><button  class="btn btn-danger">Delete</button></a></td>
-                          </tr>
-                        <?php endforeach; ?>
-                        <?php
-
-                          // useURL();
-
-                           $URL1 = $URL[1] ?? ""; 
-                          $FILENAME = "../app/controllers/" . $URL1 . ".php";
-                          echo $FILENAME;
-
-                          // if()
-
-                          
-                        ?>
+                        <?php if(is_array($result) && !empty($result)):?>                       
+                        
+                          <?php foreach($result as $data): ?>
+                              <tr>
+                              <td><?= $data['user_name'];  ?></td>
+                              <td><?= $data['first_name'] . " " . $data['last_name'];  ?></td>
+                              <td><?= $data['email']; ?></td>
+                              <td><a href="<?= ROOT?>/dash.admin/dash.delete/<?=$data['id'];?>"><button  class="btn btn-danger">Delete</button></a></td>
+                              </tr>
+                          <?php endforeach; ?>
+                        <?php endif; ?>
                         </tbody>
                         <tfoot>
-                          <tr>
+                            <tr>
                             <th>User Name</th>
                             <th>Full Names</th>
                             <th>Email</th>
                             <th>Action</th>
-                          </tr>
+                            </tr>
                         </tfoot>
-                      </table>
+                        </table>
                     </div><!-- /.box-body -->
-                  </div><!-- /.box -->
-              </div><!-- /.row (main row) -->
-            </div>
+                </div><!-- /.box -->
+
+            <?php endif; ?>
+
+            <?php if($section_three): ?>
+            <div class="box">                  
+                <div class="box-header">
+                    <h3 class="box-title">Users List</h3>
+                </div><!-- /.box-header -->
+                <div class="box-body">
+                    <table id="example1" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                        <th>User Name</th>
+                        <th>Full Names</th>
+                        <th>Email</th>                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                        <td><?= $result[0]['user_name'];  ?></td>
+                        <td><?= $result[0]['first_name'] . " " . $result[0]['last_name'];  ;  ?></td>
+                        <td><?= $result[0]['email'];  ?></td>                           
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                        <th>User Name</th>
+                        <th>Full Names</th>
+                        <th>Email</th>
+                        </tr>
+                    </tfoot>                        
+                    </table>
+                    <div style="display: flex; justify-content:space-between; align-items:center; margin-top:20px">
+                    <div>
+                        <a href="<?=ROOT?>/dash.admin"><button class="btn btn-primary">Cancel</button></a> 
+                    </div>
+                    <div>
+                        <a href="<?=ROOT?>/dash.delete.users"><button class="btn btn-danger">Delete</button></a>
+                    </div>
+                    </div>                      
+                </div><!-- /.box-body -->
+            </div><!-- /.box -->
+
+            <?php endif; ?>
+
+                  
+            </div><!-- /.row (main row) -->
+          </div>
         </section><!-- /.content -->
       </div><!-- /.content-wrapper -->
 <?php require "dash/footer.php";?>
